@@ -1,0 +1,34 @@
+language: node_js
+
+node_js:
+  - 8
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+
+  install:
+# ensure source install works
+- npm install --build-from-source
+# test our module
+- node demo.js
+
+before_script:
+# unpublish and then publish again
+- ./node_modules/.bin/node-pre-gyp package
+  ./node_modules/node-pre-gyp-github/bin/node-pre-gyp-github.js publish
+
+script:
+# if publishing, test installing from remote
+- INSTALL_RESULT=0
+- INSTALL_RESULT=$(npm install --fallback-to-build=false > /dev/null)$? || true;
+# if install returned non zero (errored) then we first unpublish and then call false so travis will bail at this line
+- if [[ $INSTALL_RESULT != 0 ]]; then echo "returned $INSTALL_RESULT";false; fi
+# If success then we arrive here so lets clean up
+- ./node_modules/.bin/node-pre-gyp clean
+
+after_success:
+# if success then query and display all published binaries
+- node-pre-gyp info

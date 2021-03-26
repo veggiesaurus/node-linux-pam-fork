@@ -1,4 +1,4 @@
-const pam = require('bindings')('node-linux-pam');
+const pam = require('bindings')('node-linux-pam-fork');
 
 /**
  * Enum for The Linux - PAM return values

@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "node-linux-pam",
+      "target_name": "node-linux-pam-fork",
       "cflags!": ["-fno-exceptions"],
       "cflags_cc!": ["-fno-exceptions"],
       "sources": [
