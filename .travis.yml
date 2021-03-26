@@ -10,8 +10,7 @@ node_js:
   - 13
   - 14
   - 15
-
-  install:
+install:
 # ensure source install works
 - npm install --build-from-source
 # test our module
